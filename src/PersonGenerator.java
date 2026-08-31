@@ -1,15 +1,37 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class PersonGenerator {
-
     public static void main(String[] args) {
-        Scanner pipe =  new Scanner(System.in);
-        String prompt = ("Please enter names");
-        String[] nameArray = pipe.nextLine().split(" ");
-        SafeInput.getNonZeroLenString(pipe, prompt);
+        Boolean cont = true;
 
-        System.out.print(nameArray[0]);
+        while (cont == true) {
+            String prompt = ("Please enter names");
+            Scanner pipe =  new Scanner(System.in);
+
+
+            String returnName = SafeInput.getNonZeroLenString(pipe, prompt);
+            System.out.print(returnName);
+
+            String continueNames = ("Do you want to enter another name? y/n");
+            String yesNo = SafeInput.getNonZeroLenString(pipe, continueNames);
+
+            if (continueNames.equalsIgnoreCase("n")) {
+                cont = false;
+
+            } else if (continueNames.equalsIgnoreCase("y")) {
+                cont = true;
+            }
+            else{
+                System.out.println(yesNo + " is not a valid input. Please type y or n");
+            }
+            List<String> namesArray = new ArrayList<>(Arrays.asList(returnName.split(" ")));
+
+        }
+
+
 
 
     }
