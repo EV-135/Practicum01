@@ -7,6 +7,7 @@ public class PersonGenerator {
     public static void main(String[] args) {
         Boolean cont = true;
         String returnName = "";
+        List<String> namesArray = new ArrayList<>(Arrays.asList(returnName.split(" ")));
         while (cont == true) {
             String prompt = ("Please enter names");
             Scanner pipe =  new Scanner(System.in);
@@ -15,6 +16,8 @@ public class PersonGenerator {
             returnName = SafeInput.getNonZeroLenString(pipe, prompt);
             System.out.print(returnName);
 
+
+            namesArray.add(returnName);
 
             Boolean validYN = false;
             while (validYN == false) {
@@ -34,7 +37,7 @@ public class PersonGenerator {
 
 
         }
-        List<String> namesArray = new ArrayList<>(Arrays.asList(returnName.split(" ")));
+        System.out.println(namesArray);
 
 
 
