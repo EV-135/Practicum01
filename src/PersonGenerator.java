@@ -1,48 +1,76 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import static java.nio.file.StandardOpenOption.CREATE;
+
 public class PersonGenerator {
     public static void main(String[] args) {
         boolean cont = true;
-        String returnName = "";
         List<String> namesArray = new ArrayList<>();
-        int id = 1;
+
+        File workingDirectory = new File(System.getProperty("user.dir"));
+        Path file = Paths.get(workingDirectory.getPath() + "\\src\\PersonTestData.txt");
+
+        Scanner pipe =  new Scanner(System.in);
+        String id = "";
+        String firstName = "";
+        String lastName = "";
+        String title = "";
+        int YOB = 0;
+        String record = "";
+
+
         while (cont) {
-            id += 1;
-
-            String prompt = ("Please enter names");
-            Scanner pipe =  new Scanner(System.in);
-
-
-            returnName = SafeInput.getNonZeroLenString(pipe, prompt);
-            System.out.print(returnName);
+            id = SafeInput.getNonZeroLenString(pipe, "Enter a 6 digit ID: ");
+            firstName = SafeInput.getNonZeroLenString(pipe, "Enter first name: ");
+            lastName = SafeInput.getNonZeroLenString(pipe, "Enter last name: ");
+            title = SafeInput.getNonZeroLenString(pipe, "Enter title: ");
+            YOB = SafeInput.getRangedInt(pipe, "Enter year of birth: ", 1000, 9999);
 
 
-            namesArray.add("ID-"+id);
-            namesArray.add(returnName);
-            namesArray.add("\n");
 
-            boolean validYN = false;
-            while (!validYN) {
-                String continueNames = ("Do you want to enter another name? y/n");
-                String yesNo = SafeInput.getNonZeroLenString(pipe, continueNames);
-                if (yesNo.equals("n") || yesNo.equals("N")) {
-                    cont = false;
-                    validYN = true;
-                } else if (yesNo.equals("y") || yesNo.equals("Y")) {
-                    cont = true;
-                    validYN = true;
-                } else {
-                    System.out.println(yesNo + " is not a valid input. Please type y or n");
+            record = (id+", "+firstName+", "+lastName+", "+title+", "+YOB);
+            namesArray.add(record);
 
-                }
-            }
-
-
+            cont = SafeInput.getYNConfirm(pipe, "Do you want to add another entry? (Y/N): ");
         }
-        System.out.println(namesArray);
+        for(String name : namesArray) {
+            System.out.println(name);
+        }
+
+        try
+        {
+            // Typical java pattern of inherited classes
+            // we wrap a BufferedWriter around a lower level BufferedOutputStream
+            OutputStream out =
+                    new BufferedOutputStream(Files.newOutputStream(file, CREATE));
+            BufferedWriter writer =
+                    new BufferedWriter(new OutputStreamWriter(out));
+
+            // Finally can write the file LOL!
+
+            for(String rec : namesArray)
+            {
+                writer.write(rec, 0, rec.length());  // stupid syntax for write rec
+                // 0 is where to start (1st char) the write
+                // rec. length() is how many chars to write (all)
+                writer.newLine();  // adds the new line
+
+            }
+            writer.close(); // must close the file to seal it and flush buffer
+            System.out.println("Data file written!");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
 
 
 
