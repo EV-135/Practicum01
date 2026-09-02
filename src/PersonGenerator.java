@@ -27,18 +27,18 @@ public class PersonGenerator {
 
 
         while (cont) {
-            id = SafeInput.getNonZeroLenString(pipe, "Enter a 6 digit ID: ");
-            firstName = SafeInput.getNonZeroLenString(pipe, "Enter first name: ");
-            lastName = SafeInput.getNonZeroLenString(pipe, "Enter last name: ");
-            title = SafeInput.getNonZeroLenString(pipe, "Enter title: ");
-            YOB = SafeInput.getRangedInt(pipe, "Enter year of birth: ", 1000, 9999);
+            id = SafeInput.getNonZeroLenString(pipe, "Enter a 6 digit ID");
+            firstName = SafeInput.getNonZeroLenString(pipe, "Enter first name");
+            lastName = SafeInput.getNonZeroLenString(pipe, "Enter last name");
+            title = SafeInput.getNonZeroLenString(pipe, "Enter title");
+            YOB = SafeInput.getRangedInt(pipe, "Enter year of birth", 1000, 9999);
 
 
 
             record = (id+", "+firstName+", "+lastName+", "+title+", "+YOB);
             namesArray.add(record);
 
-            cont = SafeInput.getYNConfirm(pipe, "Do you want to add another entry? (Y/N): ");
+            cont = SafeInput.getYNConfirm(pipe, "Do you want to add another entry? (Y/N)");
         }
         for(String name : namesArray) {
             System.out.println(name);
