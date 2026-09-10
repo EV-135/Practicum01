@@ -9,39 +9,37 @@ import java.util.ArrayList;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 
-public class PersonGenerator {
+public class ProductWriter {
     public static void main(String[] args) {
         boolean cont = true;
         List<String> namesArray = new ArrayList<>();
 
         File workingDirectory = new File(System.getProperty("user.dir"));
-        Path file = Paths.get(workingDirectory.getPath() + "\\src\\PersonTestData.txt");
+        Path file = Paths.get(workingDirectory.getPath() + "\\src\\ProductTestData.txt");
 
         Scanner pipe =  new Scanner(System.in);
         String id = "";
-        String firstName = "";
-        String lastName = "";
-        String title = "";
-        int YOB = 0;
+        String name = "";
+        String description = "";
+        double cost = 0;
         String record = "";
 
 
         while (cont) {
             id = SafeInput.getNonZeroLenString(pipe, "Enter a 6 digit ID");
-            firstName = SafeInput.getNonZeroLenString(pipe, "Enter first name");
-            lastName = SafeInput.getNonZeroLenString(pipe, "Enter last name");
-            title = SafeInput.getNonZeroLenString(pipe, "Enter title");
-            YOB = SafeInput.getRangedInt(pipe, "Enter year of birth", 1000, 9999);
+            name = SafeInput.getNonZeroLenString(pipe, "Enter name");
+            description = SafeInput.getNonZeroLenString(pipe, "Enter a description");
+            cost = SafeInput.getDouble(pipe, "Enter cost");
 
 
 
-            record = (id+", "+firstName+", "+lastName+", "+title+", "+YOB);
+            record = (id+", "+name+", "+description+", "+cost);
             namesArray.add(record);
 
             cont = SafeInput.getYNConfirm(pipe, "Do you want to add another entry?");
         }
-        for(String name : namesArray) {
-            System.out.println(name);
+        for(String nameOut : namesArray) {
+            System.out.println(nameOut);
         }
 
         try
