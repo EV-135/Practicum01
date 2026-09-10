@@ -56,11 +56,9 @@ public class PersonReader {
                     rec = reader.readLine();
                     lines.add(rec);  // read all the lines into memory in an array list
                     line++;
-                    // echo to screen
-                    System.out.printf("\nLine %4d %-60s ", line, rec);
                 }
                 reader.close(); // must close the file to seal it and flush buffer
-                System.out.println("\n\nData file read!");
+                System.out.println("\nData file read!");
 
                 // Now process the lines in the arrayList
                 // Split the line into the fields by using split with a comma
@@ -69,6 +67,10 @@ public class PersonReader {
                 // the last field year of birth yob is an int the rest are strings.
 
                 String[] fields;
+                String[] headers = {"ID", "First Name", "Last Name", "Title", "YOB"};
+                System.out.printf("%-8s%-25s%-25s%-8s%-6s", headers[0], headers[1], headers[2], headers[3], headers[4]);
+                System.out.println("\n=======================================================================");
+
                 for(String l:lines)
                 {
                     fields = l.split(","); // Split the record into the fields
